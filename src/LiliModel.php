@@ -26,9 +26,9 @@ class LiliModel extends Model
         return [];
     }
 
-    public function getFilePath($attribute)
+    public function getFilePath($attribute, $disk = 'public')
     {
-        return Storage::url($this->$attribute);
+        return Storage::disk($disk)->url($this->$attribute);
     }
 
     /**
