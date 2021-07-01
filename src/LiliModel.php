@@ -51,4 +51,32 @@ class LiliModel extends Model
     {
         return $builder;
     }
+
+
+    /**
+     * Fields to be returned in CSV export
+     */
+    public function selectCSVFields()
+    {
+        return [];
+    }
+
+    /**
+     * Fields to be parsed in return of CSV
+     * 
+     * Exemple:
+     *  return [
+            'status' => function ($status) {
+                return $status == 1 ? 'Active' : 'Inactive';
+            },
+        ];
+     */
+    public function selectCSVComputedFields()
+    {
+        return [
+            'status' => function ($field) {
+                return self::getStatusList()[$field];
+            },
+        ];
+    }
 }

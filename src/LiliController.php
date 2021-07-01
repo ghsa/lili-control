@@ -36,6 +36,32 @@ class LiliController extends Controller
         );
     }
 
+    public function csv()
+    {
+        $this->permission ? $this->authorize($this->permission, $this->model) : null;
+        $query = $this->model->query();
+        $query->select($this->model->selectCSVFields());
+        $query = $this->model->applyQueryBuilder($query);
+        $this->setFilters($query);
+        $query = $this->setOrder($query);
+        $results = $query->get()->toArray();
+        $csvContent = '';
+        foreach ($results as $result) {
+            foreach ($this->model->selectCSVComputedFields() as $key => $computedField) {
+                if (array_key_exists($key, $result)) {
+                    $result[$key] = $computedField($result[$key]);
+                }
+            }
+            $csvContent .= implode(";", $result) . "\n";
+        }
+
+        header("Content-type: text/csv");
+        header("Content-Disposition: attachment; filename=export_file.csv");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        echo $csvContent;
+    }
+
     protected function setFilters(&$query)
     {
         $filters = new LiliFilterHandler($this->model);
