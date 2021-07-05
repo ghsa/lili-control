@@ -115,8 +115,20 @@ class LiliFilterHandler
 
     /**
      * Use to apply filters
+     *   Modifiers exemple
+        $filters = new LiliFilterHandler($this->model);
+        $modifiers = [
+            'sales.created_at' => function ($value, $operator) {
+                if ($operator == '<=') {
+                    return $value . " 23:59:59";
+                }
+                return $value;
+            }
+        ];
+        $query = $filters->applyFilters($query, null, $modifiers);
+        return $filters;
      */
-    public function applyFilters(Builder $query, $prefix = null)
+    public function applyFilters(Builder $query, $prefix = null, array $modifiers = [])
     {
         $filters = $this->getFilters();
 
@@ -129,6 +141,13 @@ class LiliFilterHandler
         foreach ($filters as $filter) {
             if ($filter['value'] == null)
                 continue;
+
+            foreach ($modifiers as $key => $filterModifier) {
+                if ($key == $filter['field']) {
+                    $filter['value'] = $filterModifier($filter['value'], $filter['operator']);
+                }
+            }
+
             $filter['value'] = $filter['operator'] == 'like' ? '%' . $filter['value'] . '%' : $filter['value'];
             $query->where($prefix . $filter['field'], $filter['operator'], $filter['value']);
         }
