@@ -25,7 +25,7 @@ class LiliFilterHandler
     public function __construct(Model $model, $autoStart = true)
     {
         $this->model = $model;
-        if($autoStart)
+        if ($autoStart)
             $this->setFiltersFromRequest();
     }
 
@@ -57,7 +57,8 @@ class LiliFilterHandler
         }
     }
 
-    private function getFieldOperator($key) {
+    private function getFieldOperator($key)
+    {
         preg_match("/(.*)(\..*)$/", $key, $matches);
         return [$matches[1], str_replace(".", "", $matches[2])];
     }
@@ -75,7 +76,11 @@ class LiliFilterHandler
      */
     public function clearFilters()
     {
-        if(!empty(request()->page) || !empty(request()->order))
+        if (
+            !empty(request()->page)
+            || !empty(request()->order)
+            || (!empty(request()->keep_filters) && request()->keep_filters = 1)
+        )
             return;
         Session::remove($this->getFilterName());
     }
@@ -122,12 +127,11 @@ class LiliFilterHandler
         $prefix = !empty($prefix) ? $prefix . "." : null;
 
         foreach ($filters as $filter) {
-            if($filter['value'] == null)
+            if ($filter['value'] == null)
                 continue;
             $filter['value'] = $filter['operator'] == 'like' ? '%' . $filter['value'] . '%' : $filter['value'];
             $query->where($prefix . $filter['field'], $filter['operator'], $filter['value']);
         }
         return $query;
     }
-
 }
