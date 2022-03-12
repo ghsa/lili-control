@@ -11,8 +11,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * in Model, implementing HasMedia interface and use InteractsWithMedia trait
  *
  * New Routes:
- * Route::delete('/destroy/{id}', 'Dashboard\Controller@destroy')->name('destroy');
+ * Route::post('/sendImage/{id}', 'Dashboard\Controller@sendImage')->name('sendImage');
  * Route::delete('/destroyImage/{id}', 'Dashboard\Controller@destroyImage')->name('destroyImage');
+ *
+ *
  */
 trait ImageGaleryTrait
 {

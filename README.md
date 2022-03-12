@@ -43,8 +43,6 @@ class Post extends LiliModel
 }
 ```
 
-
-
 ### LiliController
 
 ```php
@@ -80,8 +78,6 @@ Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
 });
 ```
 
-
-
 ### Components
 
 #### Title
@@ -96,8 +92,6 @@ Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
 @endcomponent
 ```
 
-
-
 #### Card
 
 ```php
@@ -105,8 +99,6 @@ Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
 	...content...
 @endcomponent
 ```
-
-
 
 #### Modal
 
@@ -121,13 +113,30 @@ Route::group(['prefix' => 'post', 'as' => 'post.'], function () {
 @endcomponent
 ```
 
+### Image Gallery
 
+This Media Library component requires Spatie Media Library already in this package.
+
+To use image gallery component follow these steps:
+
+1. Use `ImageGaleryTrait` trait in controller;
+2. Implement Spatie Media Library `HasMedia` in Model and use `InteractsWithMedia` trait in Model;
+3. Use the view component in `model/show.blade.php`:
+
+```php
+@component('lili::components.image-gallery', ['model' => $model])
+@endcomponent
+```
+4. Insert new Routes:
+
+```php
+Route::post('/sendImage/{id}', 'Dashboard\Controller@sendImage')->name('sendImage');
+Route::delete('/destroyImage/{id}', 'Dashboard\Controller@destroyImage')->name('destroyImage');
+```
 
 ### LiliFilterHandler
 
 ....
-
-
 
 ### LiliOrderFilterHandler
 
