@@ -63,13 +63,13 @@ class LiliModel extends Model
 
     /**
      * Fields to be parsed in return of CSV
-     * 
+     *
      * Exemple:
      *  return [
-            'status' => function ($status) {
-                return $status == 1 ? 'Active' : 'Inactive';
-            },
-        ];
+     * 'status' => function ($status) {
+     * return $status == 1 ? 'Active' : 'Inactive';
+     * },
+     * ];
      */
     public function selectCSVComputedFields()
     {
@@ -78,5 +78,10 @@ class LiliModel extends Model
                 return self::getStatusList()[$field];
             },
         ];
+    }
+
+    public function getMaxUploadFileSize()
+    {
+        return 500;
     }
 }

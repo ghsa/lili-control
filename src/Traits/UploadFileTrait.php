@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Storage;
 
 trait UploadFileTrait
 {
-
     public function handleFilesToUpload($disk = 'public')
     {
         foreach (request()->files as $key => $file) {

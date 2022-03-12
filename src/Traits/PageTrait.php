@@ -4,7 +4,6 @@ namespace LiliControl\Traits;
 
 trait PageTrait
 {
-
     public $baseRoute = 'dashboard.';
 
     public function getPageTitle()
