@@ -4,18 +4,6 @@ namespace LiliControl\Traits;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-/**
- * This Media Library component requires Spatie Media Library already in this package
- *
- * To use image galery component, use this trait in controller and implements Spatie Media Library
- * in Model, implementing HasMedia interface and use InteractsWithMedia trait
- *
- * New Routes:
- * Route::post('/sendImage/{id}', 'Dashboard\Controller@sendImage')->name('sendImage');
- * Route::delete('/destroyImage/{id}', 'Dashboard\Controller@destroyImage')->name('destroyImage');
- *
- *
- */
 trait ImageGaleryTrait
 {
     public function sendImage()
