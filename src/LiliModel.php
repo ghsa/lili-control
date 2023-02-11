@@ -3,6 +3,7 @@
 namespace LiliControl;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 use LiliControl\Traits\PageTrait;
 
@@ -21,25 +22,28 @@ class LiliModel extends Model
      *
      * @return array
      */
-    public function getImageProperties()
+    public function getImageProperties(): array
     {
         return [];
     }
 
-    public function getFilePath($attribute, $disk = 'public')
+    public function getFilePath($attribute, $disk = 'public'): string
     {
+        if (empty($this->$attribute)) {
+            return '';
+        }
         return Storage::disk($disk)->url($this->$attribute);
     }
 
     /**
      * Return an array of rules to validate fields if Laravel Request
      */
-    public function getValidationFields()
+    public function getValidationFields(): array
     {
         return [];
     }
 
-    public function getFillableFields()
+    public function getFillableFields(): array
     {
         return $this->fillable;
     }
@@ -47,7 +51,7 @@ class LiliModel extends Model
     /**
      * Apply a query builder instructions on filters
      */
-    public function applyQueryBuilder($builder)
+    public function applyQueryBuilder(Builder $builder): Builder
     {
         return $builder;
     }
@@ -56,22 +60,22 @@ class LiliModel extends Model
     /**
      * Fields to be returned in CSV export
      */
-    public function selectCSVFields()
+    public function selectCSVFields(): array
     {
         return [];
     }
 
     /**
      * Fields to be parsed in return of CSV
-     * 
-     * Exemple:
+     *
+     * Example:
      *  return [
-            'status' => function ($status) {
-                return $status == 1 ? 'Active' : 'Inactive';
-            },
-        ];
+     * 'status' => function ($status) {
+     * return $status == 1 ? 'Active' : 'Inactive';
+     * },
+     * ];
      */
-    public function selectCSVComputedFields()
+    public function selectCSVComputedFields(): array
     {
         return [
             'status' => function ($field) {

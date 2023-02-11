@@ -2,6 +2,7 @@
 
 namespace LiliControl\tests;
 
+use Illuminate\Database\Eloquent\Builder;
 use LiliControl\LiliModel;
 
 class Post extends LiliModel
@@ -17,7 +18,7 @@ class Post extends LiliModel
         return $this->belongsTo(User::class);
     }
 
-    public function getValidationFields()
+    public function getValidationFields(): array
     {
         return [
             'user_id' => 'required',
@@ -25,7 +26,7 @@ class Post extends LiliModel
         ];
     }
 
-    public function applyQueryBuilder($builder)
+    public function applyQueryBuilder(Builder $builder): Builder
     {
        $builder->join('users', 'users.id', '=', 'posts.user_id');
        return $builder;

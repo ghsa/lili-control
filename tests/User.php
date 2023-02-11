@@ -18,7 +18,7 @@ class User extends LiliModel implements Authenticatable, Authorizable
         'image'
     ];
 
-    public function getValidationFields()
+    public function getValidationFields(): array
     {
         return [
             'name' => 'required',

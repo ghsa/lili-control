@@ -29,7 +29,7 @@ class LiliFilterHandler
             $this->setFiltersFromRequest();
     }
 
-    public function addFilter($field, $operator, $value)
+    public function addFilter(string $field, string $operator, string $value)
     {
         $dataFilter = $this->getFilters();
         $dataFilter[] = [
@@ -57,7 +57,7 @@ class LiliFilterHandler
         }
     }
 
-    private function getFieldOperator($key)
+    private function getFieldOperator(string $key)
     {
         preg_match("/(.*)(\..*)$/", $key, $matches);
         return [$matches[1], str_replace(".", "", $matches[2])];
