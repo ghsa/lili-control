@@ -29,7 +29,7 @@ class LiliFilterHandler
             $this->setFiltersFromRequest();
     }
 
-    public function addFilter(string $field, string $operator, string $value)
+    public function addFilter(string $field, string $operator, $value)
     {
         $dataFilter = $this->getFilters();
         $dataFilter[] = [
