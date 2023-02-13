@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 trait UploadFileTrait
 {
 
-    public function handleFilesToUpload($disk = 'public')
+    public function handleFilesToUpload($disk = 's3')
     {
         foreach (request()->files as $key => $file) {
             $this->applyImageProperties($key, $file);

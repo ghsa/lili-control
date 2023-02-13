@@ -27,7 +27,7 @@ class LiliModel extends Model
         return [];
     }
 
-    public function getFilePath($attribute, $disk = 'public'): string
+    public function getFilePath($attribute, $disk = 's3'): string
     {
         if (empty($this->$attribute)) {
             return '';
