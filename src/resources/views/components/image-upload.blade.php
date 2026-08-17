@@ -1,6 +1,6 @@
 <div class="form-group">
-    {!! Form::label($field, !empty($label) ? $label :"Image") !!}
-    {!! Form::file($field, null, ['class' => 'form-control']) !!}
+    <label for="{{ $field }}">{{ !empty($label) ? $label : "Image" }}</label>
+    <input type="file" name="{{ $field }}" id="{{ $field }}" class="form-control">
     @php
     $properties = $content->getImageProperties()[$field] ?? [];
     $validation = !empty($content->getValidationFields()[$field]) ? explode("|",
